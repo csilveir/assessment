@@ -19,6 +19,7 @@ public class Pergunta {
         return nome;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,8 +38,16 @@ public class Pergunta {
     }
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private String nome;
+
+    public CategoriaPergunta getCategoriaPergunta() {
+        return categoriaPergunta;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoria")
+    private CategoriaPergunta categoriaPergunta;
 }
