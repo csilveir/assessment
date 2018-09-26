@@ -17,20 +17,23 @@
 
 
 
+
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
 </head>
 <body>
-
-
 <br>
 <h2 align="center">Assessment Ágil - Plataforma DBSERVER.</DBSERVER></h2>
-<div align="center">
-    <font size="5">
-        <span class="label label-success" >Você completou com sucesso o formulário! Obrigado pelo seu preenchimento.</span></font>
-</div>
+<h3 align="center">Obrigado pelo preenchimento.</h3>
 <br>
-
+<div align="center">
+    <br>
+    <label th:text="${errorMessage}"></label>
+    <br>
+    <button class="btn btn-warning"
+            onclick="window.history.go(-1); return false;">Voltar
+    </button>
+</div>
 </body>
 </html>

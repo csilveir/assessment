@@ -9,10 +9,7 @@ import br.com.dbserver.arquitetura.assessment.model.Resposta;
 import br.com.dbserver.arquitetura.assessment.service.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
@@ -88,12 +85,12 @@ public class QuestoesController {
     private void selectSaveResposta(Pergunta pergunta, Formulario formulario, List<Resposta> respostas) {
         final PerguntaResposta perguntaResposta = assessmentService.getPerguntaRespostaRepository().findByFormularioAndPergunta(formulario, pergunta);
         if (Objects.nonNull(perguntaResposta))
-        respostas.forEach(resposta -> {
+            respostas.forEach(resposta -> {
 
-            if (resposta.equals(perguntaResposta.getResposta())) {
-                resposta.setChecked(true);
-            }
-        });
+                if (resposta.equals(perguntaResposta.getResposta())) {
+                    resposta.setChecked(true);
+                }
+            });
     }
 
     @PostMapping(value = "/formulario")
@@ -108,7 +105,7 @@ public class QuestoesController {
 
     private Optional<ModelAndView> actionNext(final Formulario formulario, final Pergunta pergunta) {
 
-        List<Pergunta> perguntas = assessmentService.loadAllPerguntas();
+        final List<Pergunta> perguntas = assessmentService.loadAllPerguntas();
         Optional<Pergunta> first = perguntas.parallelStream().filter(pergunta1 -> pergunta1.getId() > pergunta.getId()).findFirst();
 
         if (first.isPresent()) {
@@ -124,5 +121,13 @@ public class QuestoesController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("obrigado");
         return Optional.of(modelAndView);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ModelAndView handle(RuntimeException ex) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("errorMessage", ex.getLocalizedMessage());
+        modelAndView.setViewName("erro");
+        return modelAndView;
     }
 }

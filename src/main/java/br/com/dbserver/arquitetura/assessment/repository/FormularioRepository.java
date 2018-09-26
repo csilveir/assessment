@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface FormularioRepository extends CrudRepository<Formulario, Long> {
 
 
+    boolean existsByTimeAndSprint(final String time, final Integer sprint);
 
 }

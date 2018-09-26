@@ -73,6 +73,12 @@ public class AssessmentService {
 
 
         if (null == respostaFormulario.getId()) {
+
+            if (formularioRepository.existsByTimeAndSprint(respostaFormulario.getTime(), respostaFormulario.getSprint())) {
+
+                throw new RuntimeException(String.format("Avaliação do time %s na sprint %d já foi efetuada!", respostaFormulario.getTime(), respostaFormulario.getSprint()));
+            }
+
             save = new Formulario();
             respostaFormulario.setDtAvaliacao(new Date());
             save.setTime(respostaFormulario.getTime());
