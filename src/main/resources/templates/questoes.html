@@ -59,7 +59,7 @@
                 <div  class="radio">
                     <input type="radio" th:field="*{formulario.resposta}" th:value="${resposta.id}"
                            th:id="'resposta' + ${resposta.id}" required="required"
-                           th:checked="${resposta.checked}"/>
+                           th:checked="${resposta.checked == true}"/>
                     <label  th:for="'resposta' + ${resposta.id} "
                            th:text="${resposta.nome}"/>
 
