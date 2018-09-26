@@ -12,11 +12,16 @@ import br.com.dbserver.arquitetura.assessment.repository.RespostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
 public class AssessmentService {
 
 
@@ -29,8 +34,23 @@ public class AssessmentService {
     @Autowired
     private FormularioRepository formularioRepository;
 
+    public PerguntaRespostaRepository getPerguntaRespostaRepository() {
+        return perguntaRespostaRepository;
+    }
+
     @Autowired
     private PerguntaRespostaRepository perguntaRespostaRepository;
+
+    public PerguntaRepository getPerguntaRepository() {
+        return perguntaRepository;
+    }
+
+    public FormularioRepository getFormularioRepository() {
+        return formularioRepository;
+    }
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
 
     public List<Pergunta> loadAllPerguntas() {
@@ -62,7 +82,9 @@ public class AssessmentService {
 
 
         } else {
-            save = formularioRepository.findById(respostaFormulario.getId()).get();
+            Optional<Formulario> formularioById = formularioRepository.findById(respostaFormulario.getId());
+            formularioById.orElseThrow(() -> new RuntimeException("Inválido formulário"));
+            save = formularioById.get();
         }
 
 
@@ -76,15 +98,23 @@ public class AssessmentService {
 
         formulario = formularioRepository.findById(formulario.getId()).get();
 
-        if (!perguntaRespostaRepository.existsByFormularioAndPergunta (formulario, respostaFormulario.getPergunta())) {
+        if (!perguntaRespostaRepository.existsByFormularioAndPergunta(formulario, respostaFormulario.getPergunta())) {
 
             PerguntaResposta perguntaResposta = new PerguntaResposta();
             perguntaResposta.setPergunta(respostaFormulario.getPergunta());
             perguntaResposta.setResposta(respostaFormulario.getResposta());
             perguntaResposta.setFormulario(formulario);
             perguntaRespostaRepository.save(perguntaResposta);
+        } else {
+            atualizarResposta(respostaFormulario, formulario);
         }
         return formularioRepository.findById(formulario.getId()).get();
+    }
+
+    private void atualizarResposta(RespostaFormulario respostaFormulario, Formulario formulario) {
+        PerguntaResposta byFormularioAndPergunta = perguntaRespostaRepository.findByFormularioAndPergunta(formulario, respostaFormulario.getPergunta());
+        byFormularioAndPergunta.setResposta(respostaFormulario.getResposta());
+        entityManager.merge(byFormularioAndPergunta);
     }
 
 }

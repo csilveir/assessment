@@ -12,5 +12,7 @@ public interface PerguntaRespostaRepository extends CrudRepository<PerguntaRespo
 
 
     public Boolean existsByFormularioAndPergunta(final Formulario formulario, final Pergunta pergunta);
+    public PerguntaResposta findByFormularioAndPergunta(final Formulario formulario, final Pergunta pergunta);
+
 
 }

@@ -15,6 +15,8 @@
 
 
 
+
+
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -22,8 +24,8 @@
 <body>
 
 <br>
-<h1>Assessment Ágil - Plataforma DBSERVER</DBSERVER></h1>
-<h3>Preencha o formulário informando quais itens são de uso de seu time.</h3>
+<h2 align="center">Assessment Ágil - Plataforma DBSERVER.</DBSERVER></h2>
+<h3 align="center">Preencha o formulário informando quais as práticas são de uso no seu time.</h3>
 <br>
 <form action="#" th:action="@{/salvarFormulario}" method="post">
 
@@ -31,11 +33,12 @@
 
         <p>Time:
             <input type="text" maxlength="40" th:field="${formulario.time}" class="form-control"
-                   required="required" style="width:30% !important;margin-left:10px !important"></p>
+                   required="required" style="width:30% !important;margin-left:10px !important"
+                   th:readonly="${null != formulario.id}"></p>
         <br>
         <p>Sprint:
             <input type="number" required="required" th:field="${formulario.sprint}" class="form-control"
-                   style="width:30% !important;margin-left:10px !important"></p>
+                   style="width:30% !important;margin-left:10px !important" th:readonly="${null != formulario.id}"></p>
 
         <font size="5">
             <label class="label label-default" th:text="${formulario.pergunta.nome}">></label>
@@ -43,21 +46,33 @@
         <br>
         <br>
 
-        <input type="hidden"  th:field="${formulario.pergunta}">
-        <input type="hidden"  th:field="${formulario.id}">
-
+        <input type="hidden" th:field="${formulario.pergunta}">
+        <input type="hidden" th:field="${formulario.id}">
 
 
         <ul>
             <li th:each="resposta : ${respostas}">
-                <input type="radio" th:field="*{formulario.resposta}" th:value="${resposta.id}"
-                       th:id="'resposta' + ${resposta.id}" required="required"/>
-                <label th:for="'resposta' + ${resposta.id}" th:text="${resposta.nome}"/>
+                <div class="custom-control custom-radio">
+                    <input type="radio" th:field="*{formulario.resposta}" th:value="${resposta.id}"
+                           th:id="'resposta' + ${resposta.id}" required="required" class="custom-control-input"/>
+                    <label class="custom-control-label" th:for="'resposta' + ${resposta.id} "
+                           th:text="${resposta.nome}"/>
+
+                </div>
 
             </li>
         </ul>
+
+        <br>
+        <br>
+
+
         <button type="submit" class="btn btn-success">Responder</button>
-    </div>
+        <div th:if="${null !=  formulario.id && formulario.pergunta.id > 1}" style="display:inline;">
+            <a class="btn btn-warning"
+               th:href="@{'/?pergunta=' + ${formulario.pergunta.id - 1} + '&formulario=' + ${formulario.id}}">Voltar</a>
+
+        </div>
 
 </form>
 </body>
