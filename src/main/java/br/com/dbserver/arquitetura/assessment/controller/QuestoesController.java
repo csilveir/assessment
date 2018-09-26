@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -42,10 +43,10 @@ public class QuestoesController {
 
     private ModelAndView getModelAndViewPreenchido(@RequestParam(value = "pergunta", required = false) Long pergunta, @RequestParam(value = "formulario", required = false) Long formulario) {
         ModelAndView modelAndView;
-        Optional<Formulario> formularioById = assessmentService.getFormularioRepository().findById(formulario);
-        Optional<Pergunta> perguntaById = assessmentService.getPerguntaRepository().findById(pergunta);
-        formularioById.orElseThrow(() -> new RuntimeException("Formulário Não Encontrado"));
-        perguntaById.orElseThrow(() -> new RuntimeException("Pergunta não encontrada"));
+        final Optional<Formulario> formularioById = assessmentService.getFormularioRepository().findById(formulario);
+        final Optional<Pergunta> perguntaById = assessmentService.getPerguntaRepository().findById(pergunta);
+        formularioById.orElseThrow(() -> new RuntimeException("Formulário não Encontrado!"));
+        perguntaById.orElseThrow(() -> new RuntimeException("Pergunta não encontrada!"));
         modelAndView = getModelAndView(perguntaById.get(),
                 formularioById.get());
         return modelAndView;
@@ -53,10 +54,10 @@ public class QuestoesController {
 
 
     private ModelAndView getModelAndView(final Pergunta pergunta, final Formulario savedForm) {
-        ModelAndView modelAndView = new ModelAndView();
-        List<Resposta> respostas = assessmentService.loadAllRespostas();
+        final ModelAndView modelAndView = new ModelAndView();
+        final List<Resposta> respostas = assessmentService.loadAllRespostas();
 
-        RespostaFormulario formulario = getRespostaFormulario(pergunta, savedForm, respostas);
+        final RespostaFormulario formulario = getRespostaFormulario(pergunta, savedForm, respostas);
         formulario.setDtAvaliacao(new Date());
         modelAndView.addObject("formulario", formulario);
         modelAndView.addObject("respostas", respostas);
@@ -64,37 +65,38 @@ public class QuestoesController {
         return modelAndView;
     }
 
-    private RespostaFormulario getRespostaFormulario(Pergunta pergunta, Formulario savedForm, List<Resposta> respostas) {
-        RespostaFormulario formulario = new RespostaFormulario();
+    private RespostaFormulario getRespostaFormulario(Pergunta pergunta, Formulario formulario, List<Resposta> respostas) {
+        final RespostaFormulario respostaFormulario = new RespostaFormulario();
 
         if (null == pergunta) {
             List<Pergunta> perguntas = assessmentService.loadAllPerguntas();
-            formulario.setPergunta(perguntas.iterator().next());
+            respostaFormulario.setPergunta(perguntas.iterator().next());
         } else {
-            formulario.setPergunta(pergunta);
+            respostaFormulario.setPergunta(pergunta);
         }
-        if (null != savedForm) {
-            formulario.setSprint(savedForm.getSprint());
-            formulario.setTime(savedForm.getTime());
-            formulario.setId(savedForm.getId());
+        if (null != formulario) {
+            respostaFormulario.setSprint(formulario.getSprint());
+            respostaFormulario.setTime(formulario.getTime());
+            respostaFormulario.setId(formulario.getId());
 
-            selectSaveResposta(pergunta, savedForm, respostas);
+            selectSaveResposta(pergunta, formulario, respostas);
 
         }
-        return formulario;
+        return respostaFormulario;
     }
 
     private void selectSaveResposta(Pergunta pergunta, Formulario formulario, List<Resposta> respostas) {
-        PerguntaResposta persistedForm = assessmentService.getPerguntaRespostaRepository().findByFormularioAndPergunta(formulario, pergunta);
+        final PerguntaResposta perguntaResposta = assessmentService.getPerguntaRespostaRepository().findByFormularioAndPergunta(formulario, pergunta);
+        if (Objects.nonNull(perguntaResposta))
         respostas.forEach(resposta -> {
 
-            if (resposta.equals(persistedForm)) {
+            if (resposta.equals(perguntaResposta.getResposta())) {
                 resposta.setChecked(true);
             }
         });
     }
 
-    @PostMapping(value = "/salvarFormulario")
+    @PostMapping(value = "/formulario")
     public ModelAndView salvarFormulario(@ModelAttribute RespostaFormulario formulario) {
         Formulario saved = assessmentService.salvarResposta(formulario);
         List<Pergunta> perguntas = assessmentService.loadAllPerguntas();

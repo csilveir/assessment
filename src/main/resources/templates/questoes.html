@@ -27,7 +27,7 @@
 <h2 align="center">Assessment Ágil - Plataforma DBSERVER.</DBSERVER></h2>
 <h3 align="center">Preencha o formulário informando quais as práticas são de uso no seu time.</h3>
 <br>
-<form action="#" th:action="@{/salvarFormulario}" method="post">
+<form action="#" th:action="@{/formulario}" method="post">
 
     <div class="form-group">
 
@@ -54,7 +54,7 @@
             <li th:each="resposta : ${respostas}">
                 <div class="custom-control custom-radio">
                     <input type="radio" th:field="*{formulario.resposta}" th:value="${resposta.id}"
-                           th:id="'resposta' + ${resposta.id}" required="required" class="custom-control-input"/>
+                           th:id="'resposta' + ${resposta.id}" required="required" class="custom-control-input" th:checked="${resposta.checked}"/>
                     <label class="custom-control-label" th:for="'resposta' + ${resposta.id} "
                            th:text="${resposta.nome}"/>
 
