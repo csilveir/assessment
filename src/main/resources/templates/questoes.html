@@ -17,6 +17,7 @@
 
 
 
+
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -54,7 +55,8 @@
             <li th:each="resposta : ${respostas}">
                 <div class="custom-control custom-radio">
                     <input type="radio" th:field="*{formulario.resposta}" th:value="${resposta.id}"
-                           th:id="'resposta' + ${resposta.id}" required="required" class="custom-control-input" th:checked="${resposta.checked}"/>
+                           th:id="'resposta' + ${resposta.id}" required="required" class="custom-control-input"
+                           th:checked="${resposta.checked}"/>
                     <label class="custom-control-label" th:for="'resposta' + ${resposta.id} "
                            th:text="${resposta.nome}"/>
 
