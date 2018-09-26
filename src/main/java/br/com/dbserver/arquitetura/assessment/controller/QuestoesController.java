@@ -54,7 +54,7 @@ public class QuestoesController {
         final ModelAndView modelAndView = new ModelAndView();
         final List<Resposta> respostas = assessmentService.loadAllRespostas();
 
-        final RespostaFormulario formulario = getRespostaFormulario(pergunta, savedForm, respostas);
+        final RespostaFormulario formulario = getRespostaFormulario(pergunta, savedForm, respostas, modelAndView);
         formulario.setDtAvaliacao(new Date());
         modelAndView.addObject("formulario", formulario);
         modelAndView.addObject("respostas", respostas);
@@ -62,7 +62,7 @@ public class QuestoesController {
         return modelAndView;
     }
 
-    private RespostaFormulario getRespostaFormulario(Pergunta pergunta, Formulario formulario, List<Resposta> respostas) {
+    private RespostaFormulario getRespostaFormulario(Pergunta pergunta, Formulario formulario, List<Resposta> respostas, final ModelAndView modelAndView) {
         final RespostaFormulario respostaFormulario = new RespostaFormulario();
 
         if (null == pergunta) {
@@ -76,19 +76,20 @@ public class QuestoesController {
             respostaFormulario.setTime(formulario.getTime());
             respostaFormulario.setId(formulario.getId());
 
-            selectSaveResposta(pergunta, formulario, respostas);
+            selectSaveResposta(pergunta, formulario, respostas, modelAndView);
 
         }
         return respostaFormulario;
     }
 
-    private void selectSaveResposta(Pergunta pergunta, Formulario formulario, List<Resposta> respostas) {
+    private void selectSaveResposta(Pergunta pergunta, Formulario formulario, List<Resposta> respostas, final ModelAndView modelAndView) {
         final PerguntaResposta perguntaResposta = assessmentService.getPerguntaRespostaRepository().findByFormularioAndPergunta(formulario, pergunta);
         if (Objects.nonNull(perguntaResposta))
             respostas.forEach(resposta -> {
 
                 if (resposta.equals(perguntaResposta.getResposta())) {
                     resposta.setChecked(true);
+                    modelAndView.addObject("checked", "resposta" + resposta.getId());
                 }
             });
     }
