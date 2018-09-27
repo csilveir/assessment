@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -67,7 +64,7 @@ public class AssessmentService {
         return all;
     }
 
-    public Formulario salvarResposta(final RespostaFormulario respostaFormulario) {
+    public Formulario salvarFormulario(final RespostaFormulario respostaFormulario) {
 
         Formulario save = null;
 
@@ -91,12 +88,25 @@ public class AssessmentService {
             Optional<Formulario> formularioById = formularioRepository.findById(respostaFormulario.getId());
             formularioById.orElseThrow(() -> new RuntimeException("Inválido formulário"));
             save = formularioById.get();
+
+            validaEdicoesAvaliacoesAntigas(save);
         }
 
 
         return inserirResposta(respostaFormulario, save);
 
 
+    }
+
+    private void validaEdicoesAvaliacoesAntigas(Formulario save) {
+        if (Objects.nonNull(save.getDtAvaliacao())) {
+            long diff = new Date().getTime() - save.getDtAvaliacao().getTime();
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+            if (diffDays > 1) {
+                throw new RuntimeException("Não é possível editar avaliações antigas.");
+            }
+
+        }
     }
 
     private Formulario inserirResposta(RespostaFormulario respostaFormulario, Formulario formulario) {

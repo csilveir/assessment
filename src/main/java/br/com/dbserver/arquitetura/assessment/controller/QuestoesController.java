@@ -96,7 +96,7 @@ public class QuestoesController {
 
     @PostMapping(value = "/formulario")
     public ModelAndView salvarFormulario(@ModelAttribute RespostaFormulario formulario) {
-        Formulario saved = assessmentService.salvarResposta(formulario);
+        Formulario saved = assessmentService.salvarFormulario(formulario);
         List<Pergunta> perguntas = assessmentService.loadAllPerguntas();
         Optional<ModelAndView> nextQuestion = actionNext(saved, formulario.getPergunta());
         return nextQuestion.get();

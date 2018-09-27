@@ -27,6 +27,7 @@
 
 
 
+
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -50,36 +51,38 @@
             <input type="number" required="required" th:field="${formulario.sprint}" class="form-control" min="1"
                    style="width:5% !important;margin-left:10px !important" th:readonly="${null != formulario.id}"></p>
 
-        <br>
         <hr class="style2">
+        <div class="panel panel-default">
+            <br>
 
-        <font size="5">
-            <label class="label label-primary" th:text="${formulario.pergunta.nome}" style="margin-left:10px !important"></label>
-        </font>
+            <font size="5">
+                <label class="label label-primary" th:text="${formulario.pergunta.nome}"
+                       style="margin-left:10px !important"></label>
+            </font>
+            <br>
+            <br>
+
+            <input type="hidden" th:field="${formulario.pergunta}">
+            <input type="hidden" th:field="${formulario.id}">
+            <input type="hidden" th:value="${checked}" id="checked">
+
+
+            <ul>
+                <li th:each="resposta : ${respostas}" class="list-group">
+                    <div class="radio">
+                        <input type="radio" th:field="*{formulario.resposta}" th:value="${resposta.id}"
+                               th:id="'resposta' + ${resposta.id}" required="required"
+                               th:checked="${resposta.checked}"/>
+                        <label th:for="'resposta' + ${resposta.id} "
+                               th:text="${resposta.nome}"/>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
         <br>
-        <br>
-
-        <input type="hidden" th:field="${formulario.pergunta}">
-        <input type="hidden" th:field="${formulario.id}">
-        <input type="hidden" th:value="${checked}" id="checked">
-
-
-        <ul>
-            <li th:each="resposta : ${respostas}" class="list-group">
-                <div  class="radio">
-                    <input type="radio" th:field="*{formulario.resposta}" th:value="${resposta.id}"
-                           th:id="'resposta' + ${resposta.id}" required="required"
-                           th:checked="${resposta.checked}"/>
-                    <label  th:for="'resposta' + ${resposta.id} "
-                           th:text="${resposta.nome}"/>
-
-                </div>
-
-            </li>
-        </ul>
-
-        <br>
-
 
 
         <button type="submit" class="btn btn-success" style="margin-left:10px !important">Responder</button>
