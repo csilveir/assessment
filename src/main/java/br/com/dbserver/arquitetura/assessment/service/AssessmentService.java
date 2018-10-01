@@ -66,7 +66,7 @@ public class AssessmentService {
 
     public Formulario salvarFormulario(final RespostaFormulario respostaFormulario) {
 
-        Formulario save = null;
+        Formulario formulario = null;
 
 
         if (null == respostaFormulario.getId()) {
@@ -76,24 +76,24 @@ public class AssessmentService {
                 throw new RuntimeException(String.format("Avaliação do time %s na sprint %d já foi efetuada!", respostaFormulario.getTime(), respostaFormulario.getSprint()));
             }
 
-            save = new Formulario();
+            formulario = new Formulario();
             respostaFormulario.setDtAvaliacao(new Date());
-            save.setTime(respostaFormulario.getTime());
-            save.setDtAvaliacao(respostaFormulario.getDtAvaliacao());
-            save.setSprint(respostaFormulario.getSprint());
-            save = formularioRepository.save(save);
+            formulario.setTime(respostaFormulario.getTime());
+            formulario.setDtAvaliacao(respostaFormulario.getDtAvaliacao());
+            formulario.setSprint(respostaFormulario.getSprint());
+            formulario = formularioRepository.save(formulario);
 
 
         } else {
             Optional<Formulario> formularioById = formularioRepository.findById(respostaFormulario.getId());
             formularioById.orElseThrow(() -> new RuntimeException("Inválido formulário"));
-            save = formularioById.get();
+            formulario = formularioById.get();
 
-            validaEdicoesAvaliacoesAntigas(save);
+            validaEdicoesAvaliacoesAntigas(formulario);
         }
 
 
-        return inserirResposta(respostaFormulario, save);
+        return inserirResposta(respostaFormulario, formulario);
 
 
     }

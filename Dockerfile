@@ -6,6 +6,5 @@ ADD build/libs/*.jar /tmp/app
 
 RUN mv /tmp/app/*.jar /tmp/app/app.jar
 
-ENV PROFILE=""
 
-ENTRYPOINT [ "sh", "-c", "java $PROFILE -Djava.security.egd=file:/dev/./urandom -jar /tmp/app/app.jar" ]
+ENTRYPOINT [ "sh", "-c", "java -Djava.security.egd=file:/dev/./urandom -jar /tmp/app/app.jar" ]

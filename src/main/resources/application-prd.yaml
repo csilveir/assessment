@@ -4,12 +4,13 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+        dialect: org.hibernate.dialect.MySQL57Dialect
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
 
 
-  h2:
-    console:
-      enabled: true
-      path: /console
+  datasource:
+    url: jdbc:mysql://35.193.52.196:3306/assessment?autoReconnect=true&useSSL=false
+    username: assessment
+    password: JvdKYocpwi%C
