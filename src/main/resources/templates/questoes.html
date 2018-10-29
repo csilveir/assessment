@@ -38,6 +38,8 @@
 <h2 align="center">Assessment Ágil - Plataforma DBSERVER.</DBSERVER></h2>
 <h3 align="center">Preencha o formulário informando quais as práticas são de uso no seu time.</h3>
 <br>
+
+
 <form action="#" th:action="@{/formulario}" method="post">
 
     <div class="form-group">
@@ -51,7 +53,15 @@
             <input type="number" required="required" th:field="${formulario.sprint}" class="form-control" min="1"
                    style="width:5% !important;margin-left:10px !important" th:readonly="${null != formulario.id}"></p>
 
+
+
         <hr class="style2">
+
+        <ul class="list-inline">
+            <li th:each="categoria : ${categorias}" th:text="${categoria}" class="label" th:classappend="${formulario.pergunta.categoriaPergunta.descricao == categoria} ? label-success : label-default"></li>
+        </ul>
+
+
         <div class="panel panel-default">
             <br>
 
@@ -65,6 +75,8 @@
             <input type="hidden" th:field="${formulario.pergunta}">
             <input type="hidden" th:field="${formulario.id}">
             <input type="hidden" th:value="${checked}" id="checked">
+
+
 
 
             <ul>

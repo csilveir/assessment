@@ -2,20 +2,15 @@ package br.com.dbserver.arquitetura.assessment.controller;
 
 
 import br.com.dbserver.arquitetura.assessment.dto.RespostaFormulario;
-import br.com.dbserver.arquitetura.assessment.model.Formulario;
-import br.com.dbserver.arquitetura.assessment.model.Pergunta;
-import br.com.dbserver.arquitetura.assessment.model.PerguntaResposta;
-import br.com.dbserver.arquitetura.assessment.model.Resposta;
+import br.com.dbserver.arquitetura.assessment.model.*;
 import br.com.dbserver.arquitetura.assessment.service.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class QuestoesController {
@@ -46,6 +41,8 @@ public class QuestoesController {
         perguntaById.orElseThrow(() -> new RuntimeException("Pergunta não encontrada!"));
         modelAndView = getModelAndView(perguntaById.get(),
                 formularioById.get());
+        modelAndView.addObject("categorias",
+                Arrays.asList(CategoriaPergunta.values()).stream().map(CategoriaPergunta::getDescricao).distinct().collect(Collectors.toList()));
         return modelAndView;
     }
 
@@ -59,6 +56,8 @@ public class QuestoesController {
         modelAndView.addObject("formulario", formulario);
         modelAndView.addObject("respostas", respostas);
         modelAndView.setViewName("questoes");
+        modelAndView.addObject("categorias",
+                Arrays.asList(CategoriaPergunta.values()).stream().map(CategoriaPergunta::getDescricao).distinct().collect(Collectors.toList()));
         return modelAndView;
     }
 
@@ -67,6 +66,8 @@ public class QuestoesController {
 
         if (null == pergunta) {
             List<Pergunta> perguntas = assessmentService.loadAllPerguntas();
+
+
             respostaFormulario.setPergunta(perguntas.iterator().next());
         } else {
             respostaFormulario.setPergunta(pergunta);

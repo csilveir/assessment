@@ -3,6 +3,7 @@ insert into resposta (nome) values ('Conhece');
 insert into resposta (nome) values ('Pratica');
 insert into resposta (nome) values ('Domina');
 insert into resposta (nome) values ('Ensina');
+insert into resposta (nome) values ('Não se Aplica');
 
 insert into pergunta (nome, categoria) values ('Aplica técnicas de Clean Code.', 'CODE')
 insert into pergunta (nome, categoria) values ('Possui cultura de revisão de código por outros membros.', 'CODE')
@@ -16,7 +17,7 @@ insert into pergunta (nome, categoria) values ('Possui template de identação, 
 insert into pergunta (nome, categoria) values ('O provisionamtuento dos ambientes computacionais é versionado como infraestrutura como código.', 'CODE')
 
 insert into pergunta (nome, categoria) values ('Possui pipeline automatizado.', 'BUILD')
-insert into pergunta (nome, categoria) values ('Possui ferramenta de Quality Gate.', 'BUILD')
+insert into pergunta (nome, categoria) values ('Possui ferramenta de Quality Gate como Sonarqube, New Relic, PMD, Checkstyle ou outros.', 'BUILD')
 insert into pergunta (nome, categoria) values ('Possui métricas  bloqueantes de pipeline baseado em Quality Gate.', 'BUILD')
 insert into pergunta (nome, categoria) values ('Possui métricas de pipeline não baseadas em Quality Gate.', 'BUILD')
 insert into pergunta (nome, categoria) values ('Guarda métricas de execução de pipelines.', 'BUILD')
