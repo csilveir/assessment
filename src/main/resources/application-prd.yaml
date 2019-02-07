@@ -2,8 +2,8 @@ spring:
   jpa:
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
+        show_sql: false
+        format_sql: false
         dialect: org.hibernate.dialect.MySQL57Dialect
     generate-ddl: true
     hibernate:
@@ -14,3 +14,4 @@ spring:
     url: jdbc:mysql://35.193.52.196:3306/assessment?autoReconnect=true&useSSL=false
     username: assessment
     password: JvdKYocpwi%C
+    driver-class-name: com.mysql.cj.jdbc.Driver

@@ -35,8 +35,8 @@ public class QuestoesController {
 
     private ModelAndView getModelAndViewPreenchido(@RequestParam(value = "pergunta", required = false) Long pergunta, @RequestParam(value = "formulario", required = false) Long formulario) {
         ModelAndView modelAndView;
-        final Optional<Formulario> formularioById = assessmentService.getFormularioRepository().findById(formulario);
-        final Optional<Pergunta> perguntaById = assessmentService.getPerguntaRepository().findById(pergunta);
+        final var formularioById = assessmentService.getFormularioRepository().findById(formulario);
+        final var perguntaById = assessmentService.getPerguntaRepository().findById(pergunta);
         formularioById.orElseThrow(() -> new RuntimeException("Formulário não Encontrado!"));
         perguntaById.orElseThrow(() -> new RuntimeException("Pergunta não encontrada!"));
         modelAndView = getModelAndView(perguntaById.get(),
@@ -48,8 +48,8 @@ public class QuestoesController {
 
 
     private ModelAndView getModelAndView(final Pergunta pergunta, final Formulario savedForm) {
-        final ModelAndView modelAndView = new ModelAndView();
-        final List<Resposta> respostas = assessmentService.loadAllRespostas();
+        final var modelAndView = new ModelAndView();
+        final var respostas = assessmentService.loadAllRespostas();
 
         final RespostaFormulario formulario = getRespostaFormulario(pergunta, savedForm, respostas, modelAndView);
         formulario.setDtAvaliacao(new Date());

@@ -51,7 +51,7 @@ public class AssessmentService {
 
 
     public List<Pergunta> loadAllPerguntas() {
-        List<Pergunta> all = perguntaRepository.findAll();
+        var all = perguntaRepository.findAll();
         all.sort(Comparator.comparing(Pergunta::getId));
 
         return all;
@@ -59,7 +59,7 @@ public class AssessmentService {
 
     public List<Resposta> loadAllRespostas() {
 
-        List<Resposta> all = respostaRepository.findAll();
+        var all = respostaRepository.findAll();
         all.sort(Comparator.comparing(Resposta::getId));
         return all;
     }
@@ -69,19 +69,14 @@ public class AssessmentService {
         Formulario formulario = null;
 
 
-        if (null == respostaFormulario.getId()) {
+        if (Objects.isNull(respostaFormulario.getId())) {
 
             if (formularioRepository.existsByTimeAndSprint(respostaFormulario.getTime(), respostaFormulario.getSprint())) {
 
                 throw new RuntimeException(String.format("Avaliação do time %s na sprint %d já foi efetuada!", respostaFormulario.getTime(), respostaFormulario.getSprint()));
             }
 
-            formulario = new Formulario();
-            respostaFormulario.setDtAvaliacao(new Date());
-            formulario.setTime(respostaFormulario.getTime());
-            formulario.setDtAvaliacao(respostaFormulario.getDtAvaliacao());
-            formulario.setSprint(respostaFormulario.getSprint());
-            formulario = formularioRepository.save(formulario);
+            formulario = fromTransport(respostaFormulario);
 
 
         } else {
@@ -96,6 +91,17 @@ public class AssessmentService {
         return inserirResposta(respostaFormulario, formulario);
 
 
+    }
+
+    private Formulario fromTransport(RespostaFormulario respostaFormulario) {
+        Formulario formulario;
+        formulario = new Formulario();
+        respostaFormulario.setDtAvaliacao(new Date());
+        formulario.setTime(respostaFormulario.getTime());
+        formulario.setDtAvaliacao(respostaFormulario.getDtAvaliacao());
+        formulario.setSprint(respostaFormulario.getSprint());
+        formulario = formularioRepository.save(formulario);
+        return formulario;
     }
 
     private void validaEdicoesAvaliacoesAntigas(Formulario save) {
@@ -128,9 +134,9 @@ public class AssessmentService {
     }
 
     private void atualizarResposta(RespostaFormulario respostaFormulario, Formulario formulario) {
-        PerguntaResposta byFormularioAndPergunta = perguntaRespostaRepository.findByFormularioAndPergunta(formulario, respostaFormulario.getPergunta());
-        byFormularioAndPergunta.setResposta(respostaFormulario.getResposta());
-        entityManager.merge(byFormularioAndPergunta);
+        var formularioAndPergunta = perguntaRespostaRepository.findByFormularioAndPergunta(formulario, respostaFormulario.getPergunta());
+        formularioAndPergunta.setResposta(respostaFormulario.getResposta());
+        entityManager.merge(formularioAndPergunta);
     }
 
 }

@@ -43,6 +43,21 @@ public class Pergunta {
     @NotNull
     private String nome;
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setCategoriaPergunta(CategoriaPergunta categoriaPergunta) {
+        this.categoriaPergunta = categoriaPergunta;
+    }
+
+    @NotNull
+    private String descricao;
+
     public CategoriaPergunta getCategoriaPergunta() {
         return categoriaPergunta;
     }

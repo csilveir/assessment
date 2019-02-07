@@ -36,7 +36,7 @@
 
 <br>
 <h2 align="center">Assessment Ágil - Plataforma DBSERVER.</DBSERVER></h2>
-<h3 align="center">Preencha o formulário informando quais as práticas são de uso no seu time.</h3>
+<h3 align="center">Preencha o formulário informando quais as práticas são de uso e/ou conhecimento do seu time.</h3>
 <br>
 
 
@@ -70,6 +70,8 @@
                        style="margin-left:10px !important"></label>
             </font>
             <br>
+            <br>
+                <p th:text="${formulario.pergunta.descricao}"></p>
             <br>
 
             <input type="hidden" th:field="${formulario.pergunta}">
