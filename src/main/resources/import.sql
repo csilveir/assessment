@@ -34,51 +34,51 @@ insert into pergunta (nome, categoria, descricao) values ('Possui teste de penet
 
 insert into pergunta (nome, categoria, descricao) values ('Cria tags para releases.', 'RELEASE', 'A tag costuma marcar um release, uma versão ou algo assim. Então a tag é apenas um apontador para um commit específico enquanto que um branch é um caminho, um galho de desenvolvimento, desta forma fica fácil acessar aquele estado sempre que for preciso.')
 
-insert into pergunta (nome, categoria, descricao) values ('Pratica Continuous Integration.', 'RELEASE')
+insert into pergunta (nome, categoria, descricao) values ('Pratica Continuous Integration.', 'RELEASE', 'Na engenharia de software, a integração contínua é a prática de mesclar todas as cópias de trabalho do desenvolvedor em uma linha principal compartilhada várias vezes ao dia.')
 
-insert into pergunta (nome, categoria, descricao) values ('Pratica Continuous Delivery.', 'RELEASE')
+insert into pergunta (nome, categoria, descricao) values ('Pratica Continuous Delivery.', 'RELEASE', 'A entrega contínua é uma abordagem de engenharia de software na qual as equipes produzem software em ciclos curtos, garantindo que o software possa ser liberado com segurança a qualquer momento.')
 
-insert into pergunta (nome, categoria, descricao) values ('Pratica Continuous Deployment.', 'RELEASE')
+insert into pergunta (nome, categoria, descricao) values ('Pratica Continuous Deployment.', 'RELEASE', 'Continuous Deployment, ou implantação contínua, como o próprio nome sugere, pode ser pensado como uma abordagem que é uma extensão da integração contínua, com o objetivo de minimizar o lead time (o tempo decorrido entre o desenvolvimento de uma nova linha de código e o novo código sendo usado por usuários ao vivo) em produção.    ')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui ferramenta de Continuous Database Migration.', 'RELEASE')
+insert into pergunta (nome, categoria, descricao) values ('Possui ferramenta de Continuous Database Migration.', 'RELEASE', 'Uma alteração no banco de dados deve estar sujeita às mesmas atividades (source control, integração contínua e entrega contínua) conforme as alterações do aplicativo')
 
-insert into pergunta (nome, categoria, descricao) values ('Versiona os artefatos de software binários ou imagens docker em gerenciador de artefatos.', 'RELEASE')
+insert into pergunta (nome, categoria, descricao) values ('Versiona os artefatos de software binários ou imagens docker em gerenciador de artefatos.', 'RELEASE', 'Ferramentas que guardam os artefatos binários de cada release.')
 
-insert into pergunta (nome, categoria, descricao) values ('Cria CHANGELOG com as informações de cada release.', 'RELEASE')
+insert into pergunta (nome, categoria, descricao) values ('Cria CHANGELOG com as informações de cada release.', 'RELEASE', 'Em computação Changelog corresponde a uma lista contendo o registro de todas alterações realizadas em um sistema, ambiente ou qualquer outro elemento.')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui Blue-Green Deployment.', 'DEPLOY')
+insert into pergunta (nome, categoria, descricao) values ('Possui Blue-Green Deployment.', 'DEPLOY', 'Se chamarmos o ambiente de produção atual de “azul”, a técnica consiste em introduzir um ambiente paralelo “verde” com a nova versão do software e, uma vez que tudo é testado e está pronto para começar a operar, você simplesmente redireciona todo o tráfego de usuários do ambiente “azul” para o ambiente “verde.”')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui Canary Release.', 'DEPLOY')
+insert into pergunta (nome, categoria, descricao) values ('Possui Canary Release.', 'DEPLOY', 'O lançamento de canários é uma técnica para reduzir o risco de introduzir uma nova versão de software em produção, lançando lentamente a mudança em um pequeno subconjunto de usuários, antes de distribuí-la para toda a infraestrutura e disponibilizá-la para todos.')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui A/B Testing.', 'DEPLOY')
+insert into pergunta (nome, categoria, descricao) values ('Possui A/B Testing.', 'DEPLOY', 'Teste A/B é um método de teste de design através do qual comparam-se elementos aleatórios com duas variantes, A e B, em que estes são o controle e o tratamento de uma experiência controlada.')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui ambientes de teste e stage com semelhanças ao ambiente de produção.', 'DEPLOY')
+insert into pergunta (nome, categoria, descricao) values ('Possui ambientes de teste e stage com semelhanças ao ambiente de produção.', 'DEPLOY', 'Infraestrutura e arquitetura dos ambientes de teste e homologação similares, não olhando número de recursos, a de produção.')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui desenho, nem que mínimo, de seus componentes de software.', 'PLAN')
+insert into pergunta (nome, categoria, descricao) values ('Possui desenho, nem que mínimo, de seus componentes de software.', 'PLAN', 'Desenho de componentes de Software')
 
-insert into pergunta (nome, categoria, descricao) values ('O time do projeto realiza sessões de design antes dos desenvolvimentos das features.', 'PLAN')
+insert into pergunta (nome, categoria, descricao) values ('O time do projeto realiza sessões de design antes dos desenvolvimentos das features.', 'PLAN', '')
 
-insert into pergunta (nome, categoria, descricao) values ('O time realiza discussões periódicas com a equipe de plataforma.', 'PLAN')
+insert into pergunta (nome, categoria, descricao) values ('O time realiza discussões periódicas com a equipe de plataforma.', 'PLAN', '')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui canal ou ferramenta de comunicação do time.', 'PLAN')
+insert into pergunta (nome, categoria, descricao) values ('Possui canal ou ferramenta de comunicação do time.', 'PLAN', '')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui mural ou wiki do projeto contendo material de apoio para o time.', 'PLAN')
+insert into pergunta (nome, categoria, descricao) values ('Possui mural ou wiki do projeto contendo material de apoio para o time.', 'PLAN', '')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui definições e/ou planejamento de ASRs - Requisitos arquitetonicamente significativos', 'PLAN')
+insert into pergunta (nome, categoria, descricao) values ('Possui definições e/ou planejamento de ASRs - Requisitos arquitetonicamente significativos', 'PLAN', 'Time olha para os requisitos arquiteturais e débitos técnicos de arquitetura e os planeja.')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui a filosofia de SRE (Engenharia de confiabilidade do site)', 'MONITOR')
+insert into pergunta (nome, categoria, descricao) values ('Possui a filosofia de SRE (Engenharia de confiabilidade do site)', 'MONITOR', '')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui ferramenta de monitoramento da aplicação sendo executada em produção.', 'MONITOR')
+insert into pergunta (nome, categoria, descricao) values ('Possui ferramenta de monitoramento da aplicação sendo executada em produção.', 'MONITOR','')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui testes de performance para melhoria de desempenho.', 'MONITOR')
+insert into pergunta (nome, categoria, descricao) values ('Possui testes de performance para melhoria de desempenho.', 'MONITOR','')
 
-insert into pergunta (nome, categoria, descricao) values ('Coleta dados de navegação ou experiência para melhoria de fluxos visuais.', 'MONITOR')
+insert into pergunta (nome, categoria, descricao) values ('Coleta dados de navegação ou experiência para melhoria de fluxos visuais.', 'MONITOR', '')
 
-insert into pergunta (nome, categoria, descricao) values ('Possui ferramenta para visualização e/ou análise de logs.', 'MONITOR')
+insert into pergunta (nome, categoria, descricao) values ('Possui ferramenta para visualização e/ou análise de logs.', 'MONITOR', '')
 
-insert into pergunta (nome, categoria, descricao) values ('Persiste logs por determinada janela temporal para posterior análise ou correlação.', 'MONITOR')
+insert into pergunta (nome, categoria, descricao) values ('Persiste logs por determinada janela temporal para posterior análise ou correlação.', 'MONITOR', 'Existe a análise de logs para olhar como questões de erros mais comuns e possíveis causas')
 
-insert into pergunta (nome, categoria, descricao) values ('Persiste métricas de softwares por determinada janela temporal para posterior análise ou correlação.', 'MONITOR')
+insert into pergunta (nome, categoria, descricao) values ('Persiste métricas de softwares por determinada janela temporal para posterior análise ou correlação.', 'MONITOR', 'Existe a análise de logs para olhar como questões de erros mais comuns e possíveis causas')
 
 
 
